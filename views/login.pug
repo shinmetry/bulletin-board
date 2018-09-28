@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 掲示板
+  if user
+    div.my-3
+      p 現在 #{user.displayName} がログイン中
+    div.my-3
+      a(href="/").btn.btn-info  掲示板
+    div.my-3
+      a(href="/logout").btn.btn-info  ログアウト
+  else
+    a(href="/auth/google").btn.btn-info  Googleでログイン

@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  div.my-3
+    a(href="/logout").btn.btn-info.float-right ログアウト
+    h1 掲示板
+  p #{user.displayName} がログイン中
+  h3 新規投稿
+  form(method="post" action="/" name="comment1")
+    input(type="hidden" name="_csrf" value!=csrfToken)
+    div
+      textarea(name="content" cols=40 rows=4).form-control
+    div
+      button(type="submit"  onclick="return check();").btn.btn-primary 投稿
+  script. 
+    function check(){ if(document.comment1.content.
+    value==""){window.alert("投稿内容が未入力です。"); 
+    return false;}else{ return true;}};  
+  div.my-3
+    h2 投稿一覧
+    each post in posts
+      div.card.my-3
+        div.card-header
+          span #{post.id +'. '} 投稿者: #{post.postedBy}
+        div.card-body
+          p.card-text #{post.content}
+        div.card-footer
+          div 投稿日時: #{post.formattedCreatedAt}
+          - var isDeletable = (parseInt(user.id) === parseInt(post.postId) )
+          if isDeletable
+            form(method="post" action="?delete=1" )
+              input(type="hidden" name="_csrf" value!=csrfToken)
+              input(type="hidden" name="id" value=post.id )
+              button(type="submit").btn.btn-danger.float-right  削除
+        
