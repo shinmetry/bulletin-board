@@ -1,0 +1,7 @@
+{
+  "name": "bulletin-board",
+  "description": "掲示板",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
